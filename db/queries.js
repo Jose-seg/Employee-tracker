@@ -64,3 +64,13 @@ const updateEmployeeRole = async (employeeId, newRoleId) => {
     const [result] = await connection.promise().query(query, [newRoleId, employeeId]);
     return result;
 };
+
+module.exports = {
+    viewAllDepartments,
+    viewAllRoles,
+    viewAllEmployees,
+    addDepartment,
+    addRole,
+    addEmployee,
+    updateEmployeeRole,
+};
