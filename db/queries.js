@@ -12,14 +12,15 @@ const viewAllDepartments = async () => {
 const viewAllRoles = async () => {
     const query = `
         SELECT 
-            role.id AS role_id,
-            role.title AS job_title,
+            role.id AS id,
+            role.title AS title,
             department.name AS department,
             role.salary
         FROM role
         JOIN department ON role.department_id = department.id    
         `;
     const [rows] = await connection.promise().query(query);
+    return rows;
 };
 
 const viewAllEmployees = async () => {

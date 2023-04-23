@@ -42,10 +42,10 @@ async function main() {
                     message: 'Enter the name of the new department:',
                 },
             ]);
-            await addDepartment(departmentName);
+            await queries.addDepartment(departmentName);
             console.log('Department added successfully.');
         } else if (action === 'Add a role') {
-            const departments = await viewAllDepartments();
+            const departments = await queries.viewAllDepartments();
             const departmentChoices = departments.map(department => ({ name: department.name, value: department.id}));
 
             const { title, salary, departmentId } = await inquirer.prompt([
@@ -66,13 +66,13 @@ async function main() {
                     choices: departmentChoices,
                 },
             ]);
-            await addRole(title, salary, departmentId);
+            await queries.addRole(title, salary, departmentId);
             console.log('Role added successfully.');
         } else if (action === 'Add an employee') {
-            const roles = await viewAllRoles();
-            const roleChoices = roles.map(role => ({ name: role.job_title, value: role.role_id}));
+            const roles = await queries.viewAllRoles();
+            const roleChoices = roles.map(role => ({ name: role.title, value: role.id}));
 
-            const employees = await viewAllEmployees();
+            const employees = await queries.viewAllEmployees();
             const managerChoices = employees.map(employee => ({ name: `${employee.first_name} ${employee.last_name}`, value: employee.employee_id }));
             managerChoices.unshift({ name: 'None', value: null });
 
@@ -100,13 +100,13 @@ async function main() {
                     choices: managerChoices,
                 },
             ]);
-            await addEmployee(firstName, lastName, roleId, managerId);
+            await queries.addEmployee(firstName, lastName, roleId, managerId);
             console.log('Employee added successfully.');
         } else if (action === 'Update an employee role') {
-            const employees = await viewAllEmployees();
-            const employeeChoices = employee.map(employee => ({ name: `${employee.first_name} ${employee.last_name}`, value: employee.id}));
+            const employees = await queries.viewAllEmployees();
+            const employeeChoices = employees.map(employee => ({ name: `${employee.first_name} ${employee.last_name}`, value: employee.id}));
 
-            const roles = await viewAllRoles();
+            const roles = await queries.viewAllRoles();
             const roleChoices = roles.map(role => ({ name: role.title, value: role.id}));
 
             const { employeeId, newRoleId } = await inquirer.prompt([
@@ -123,9 +123,9 @@ async function main() {
                     choices: roleChoices,
                 },
             ]);
-            await updateEmployeeRole(employeeId, newRoleId);
+            await queries.updateEmployeeRole(employeeId, newRoleId);
             console.log('Employee role has been successfully updated.');
-        } else {
+        } else if (action === 'Exit') {
             break;
         }
     }
