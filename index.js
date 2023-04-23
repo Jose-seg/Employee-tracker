@@ -25,15 +25,16 @@ async function main() {
         ]);
 
         // Here a call to appropriate function according to the choice picked by the user
-        if (action === 'View all departments') {
+        if (action === 'View all departments') { // if user chooses to view all departments,then a table with department data is given
             const departments = await queries.viewAllDepartments();
             console.table(departments);
-        } else if (action === 'View all roles') {
+        } else if (action === 'View all roles') { // if user chooses to view all roles,then a table with all the roles is given
             const roles = await queries.viewAllRoles();
             console.table(roles);
-        } else if (action === 'View all employees') {
+        } else if (action === 'View all employees') { // if user chooses to view all employees,then a table with employee data is given
             const employees = await queries.viewAllEmployees();
             console.table(employees);
+            // Here is the functionality for the option of adding a new department
         } else if (action === 'Add a department') {
             const { departmentName } = await inquirer.prompt([
                 {
@@ -44,7 +45,8 @@ async function main() {
             ]);
             await queries.addDepartment(departmentName);
             console.log('Department added successfully.');
-        } else if (action === 'Add a role') {
+            // Here is the functionality for the option of adding a new role
+        } else if (action === 'Add a role') { // On line 48 I had to include queries. since it was causing the app to throw an error
             const departments = await queries.viewAllDepartments();
             const departmentChoices = departments.map(department => ({ name: department.name, value: department.id}));
 
@@ -68,9 +70,10 @@ async function main() {
             ]);
             await queries.addRole(title, salary, departmentId);
             console.log('Role added successfully.');
+            // Here is the functionality for the option of adding a new employee 
         } else if (action === 'Add an employee') {
             const roles = await queries.viewAllRoles();
-            const roleChoices = roles.map(role => ({ name: role.title, value: role.id}));
+            const roleChoices = roles.map(role => ({ name: role.title, value: role.id}));// Changed role.job_title to role.title to fix the undefined issue
 
             const employees = await queries.viewAllEmployees();
             const managerChoices = employees.map(employee => ({ name: `${employee.first_name} ${employee.last_name}`, value: employee.employee_id }));
@@ -102,6 +105,7 @@ async function main() {
             ]);
             await queries.addEmployee(firstName, lastName, roleId, managerId);
             console.log('Employee added successfully.');
+            // Here is the functionality for the option of updating an employee role
         } else if (action === 'Update an employee role') {
             const employees = await queries.viewAllEmployees();
             const employeeChoices = employees.map(employee => ({ name: `${employee.first_name} ${employee.last_name}`, value: employee.id}));

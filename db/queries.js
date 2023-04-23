@@ -3,12 +3,13 @@ const connection = require('./connection');
 
 // functions for the Queries
 
+// Query for viewing all departments
 const viewAllDepartments = async () => {
     const query = 'SELECT * FROM department';
     const [rows] = await connection.promise().query(query);
     return rows;
 };
-
+// Query for viewing all roles
 const viewAllRoles = async () => {
     const query = `
         SELECT 
@@ -22,7 +23,7 @@ const viewAllRoles = async () => {
     const [rows] = await connection.promise().query(query);
     return rows;
 };
-
+// Query for viewing all employees
 const viewAllEmployees = async () => {
     const query = `
         SELECT
@@ -41,25 +42,25 @@ const viewAllEmployees = async () => {
         const [rows] = await connection.promise().query(query);
         return rows;
 };
-
+// Query for adding a department
 const addDepartment = async (name) => {
     const query = 'INSERT INTO department (name) VALUES (?)';
     const [result] = await connection.promise().query(query, [name]);
     return result;
 };
-
+// Query for adding a role
 const addRole = async (title, salary, departmentId) => {
     const query = 'INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)';
     const [result] = await connection.promise().query(query, [title, salary, departmentId]);
     return result;
 };
-
+// Query for adding a new employee
 const addEmployee = async (firstName, lastName, roleId, managerId) => {
     const query = 'INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)';
     const [result] = await connection.promise().query(query, [firstName, lastName, roleId, managerId]);
     return result;
 };
-
+// Query for updating an employee role
 const updateEmployeeRole = async (employeeId, newRoleId) => {
     const query = 'UPDATE employee SET role_id = ? WHERE id = ?';
     const [result] = await connection.promise().query(query, [newRoleId, employeeId]);
