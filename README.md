@@ -12,6 +12,7 @@ The purpose of this app is to provide the user with a series of prompts that all
  - console.table
 
  ## Video Walkthrough (Link)
+https://drive.google.com/file/d/1qHi6jdktOn3G1Oh39g_fj_ELBzRFr67_/view?usp=sharing
 
  ## Github Repo
  https://github.com/Jose-seg/Employee-tracker
